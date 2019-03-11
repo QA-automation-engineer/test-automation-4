@@ -45,28 +45,25 @@ public class FirstTest {
 //		driver.findElement(By.id("search_query_top")).click();
 		driver.findElement(By.id("search_query_top")).clear();
 		driver.findElement(By.id("search_query_top")).sendKeys("T-shirt");
-
-		waitForElementDisappearing(By.xpath("//*[@id=\"index\"]/div[2]/ul/li[1]"), 5000L);
+		waitForElementDisappearing(By.xpath("//*[@id=\"index\"]/div[2]/ul/li[position()=1 and contains(text(), \"Dress\")]"), 5000L);
 		Assert.assertThat(driver
 						.findElement(By.xpath("//*[@id=\"index\"]/div[2]/ul/li[1]")).getText(),
 				containsString("T-shirt"));
 	}
 
 	void waitForElementDisappearing(By by, long timeout) {
-		long initialTime = System.currentTimeMillis();
+		long startTime = System.currentTimeMillis();
 		driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
-		boolean hp = false;
-		while (true) {
-			if (System.currentTimeMillis() - initialTime > timeout ) {
-				hp = true;
-				break;
+		while (!driver.findElements(by).isEmpty()) {
+			if (System.currentTimeMillis() - startTime > timeout ) {
+				throw new TimeoutException("Element is still present");
 			}
-			if (driver.findElements(by).isEmpty())
-				break;
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-		if(hp) {
-			throw new TimeoutException("Element is still present");
-		}
 	}
 }
