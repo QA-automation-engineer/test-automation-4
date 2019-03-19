@@ -1,10 +1,7 @@
-package lesson08.c_add_assertall;
+package lesson09.a_add_simple_logging;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.AssumptionViolatedException;
 import org.junit.BeforeClass;
@@ -15,7 +12,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+
 public abstract class BaseTest extends SimpleAPI {
+
+	private static final Logger LOGGER = LogManager.getLogger(BaseTest.class);
 
 	protected static WebDriver driver;
 
@@ -28,14 +32,14 @@ public abstract class BaseTest extends SimpleAPI {
 	public TestWatcher testWatcher = new TestWatcher() {
 		@Override
 		protected void succeeded(Description description) {
-			System.out.println(String
+			LOGGER.info(String
 					.format("Test '%s' - PASSED", description.getMethodName()));
 			super.succeeded(description);
 		}
 
 		@Override
 		protected void failed(Throwable e, Description description) {
-			System.out.println(String
+			LOGGER.info(String
 					.format("Test '%s' - FAILED due to: %s",
 							description.getMethodName(),
 							e.getMessage()));
@@ -44,14 +48,14 @@ public abstract class BaseTest extends SimpleAPI {
 
 		@Override
 		protected void skipped(AssumptionViolatedException e, Description description) {
-			System.out.println(String
+			LOGGER.info(String
 					.format("Test '%s' - SKIPPED", description.getMethodName()));
 			super.skipped(e, description);
 		}
 
 		@Override
 		protected void starting(Description description) {
-			System.out.println(String
+			LOGGER.info(String
 					.format("Test '%s' - is starting...", description.getMethodName()));
 			super.starting(description);
 		}
@@ -60,6 +64,7 @@ public abstract class BaseTest extends SimpleAPI {
 	@BeforeClass
 	public static void setUp() {
 		driver = new ChromeDriver();
+		LOGGER.debug("WebDriver has been started");
 		driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 	}
@@ -67,6 +72,7 @@ public abstract class BaseTest extends SimpleAPI {
 	@AfterClass
 	public static void tearDown() {
 		driver.quit();
+		LOGGER.debug("WebDriver has been shut down");
 	}
 
 	void assertThat(ExpectedCondition<Boolean> condition) {

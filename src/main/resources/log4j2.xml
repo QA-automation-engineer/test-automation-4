@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug">
+    <properties>
+        <property name="path">$${sys:report.path}/logs</property>
+    </properties>
+    <Appenders>
+        <File name="FILE1" fileName="${path}/trace.log" append="false">
+            <PatternLayout pattern="[%-5p] | %d{yyyy-MM-dd HH:mm:ss} | (%-27F:%-3L) - %m%n"/>
+        </File>
+        <File name="FILE2" fileName="${path}/info.log" append="false">
+            <PatternLayout pattern="[%-5p] | %d{yyyy-MM-dd HH:mm:ss} | (%-27F:%-3L) - %m%n"/>
+        </File>
+        <File name="HTMLApender1" fileName="${path}/trace.html">
+            <HTMLLayout charset="UTF-8" title="Trace log" locationInfo="true"/>
+        </File>
+        <File name="HTMLApender2" fileName="${path}/info.html">
+            <HTMLLayout charset="UTF-8" title="Info log" locationInfo="true"/>
+        </File>
+        <Console name="console" target="SYSTEM_OUT">
+            <!--<PatternLayout pattern="[%-5p] | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n"/>-->
+            <PatternLayout pattern="[%-5p] | %d{yyyy-MM-dd HH:mm:ss} | (%-27F:%-3L) - %m%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Logger name="com.memorynotfound" level="debug"/>
+        <Root level="trace">
+            <AppenderRef ref="console" level="info"/>
+            <AppenderRef ref="FILE1" level="trace"/>
+            <AppenderRef ref="FILE2" level="info"/>
+            <AppenderRef ref="HTMLApender1" level="trace"/>
+            <AppenderRef ref="HTMLApender2" level="info"/>
+        </Root>
+    </Loggers>
+</Configuration>
