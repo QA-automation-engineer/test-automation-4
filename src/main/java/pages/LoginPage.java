@@ -14,11 +14,13 @@ public class LoginPage extends BasePage{
 
 	public void visit(){
 		open("http://automationpractice.com/index.php?controller=authentication");
+		waitForDocumentCompleteState();
 	}
 
 	public void logIn(String email, String pwd) {
 		$(By.id("email")).sendKeys(email);
 		$(By.id("passwd")).sendKeys(pwd);
 		$(By.id("SubmitLogin")).click();
+		waitForDocumentCompleteState();
 	}
 }
