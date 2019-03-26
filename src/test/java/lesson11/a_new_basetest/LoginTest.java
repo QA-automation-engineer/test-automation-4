@@ -39,8 +39,8 @@ public class LoginTest extends BaseGUITest {
 				containsString("My account"));
 	}
 
-	@Test
-	public void Verify_That_User_Can_Login_Into_Private_Cabinet_FAILED(){
+	@Test(expected = AssertionError.class)
+	public void Verify_That_User_Can_Login_Into_Private_Cabinet_Should_Be_FAILED(){
 		// act
 		loginPage.logIn("trandafilov.vladimir@gmail.com", "password");
 		// assert
