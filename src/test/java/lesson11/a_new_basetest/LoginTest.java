@@ -38,4 +38,14 @@ public class LoginTest extends BaseGUITest {
 				loginPage.getPageTitle(),
 				containsString("My account"));
 	}
+
+	@Test
+	public void Verify_That_User_Can_Login_Into_Private_Cabinet_FAILED(){
+		// act
+		loginPage.logIn("trandafilov.vladimir@gmail.com", "password");
+		// assert
+		Assert.assertThat(
+				loginPage.getPageTitle(),
+				containsString("My account1"));
+	}
 }
