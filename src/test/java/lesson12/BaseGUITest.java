@@ -71,7 +71,7 @@ public abstract class BaseGUITest extends SimpleAPI {
 				if (seleniumUrl != null) {
 					DesiredCapabilities caps = DesiredCapabilities.chrome();
 					try {
-						driver = new RemoteWebDriver(new URL(seleniumUrl), caps);
+						driver = new RemoteWebDriver(new URL("http://" + seleniumUrl + ":4444/wd/hub"), caps);
 					} catch (MalformedURLException e) {
 						e.printStackTrace();
 					}
