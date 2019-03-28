@@ -65,6 +65,7 @@
                 <version>2.20.1</version>
                 <configuration>
                     <argLine>-Dfile.encoding=UTF-8</argLine>
+                    <useSystemClassLoader>false</useSystemClassLoader>
                     <systemPropertyVariables>
                         <report.path>./reports/build-${timestamp}</report.path>
                         <selenium.url>http://localhost:4444/wd/hub</selenium.url>
