@@ -81,7 +81,7 @@ public abstract class BaseGUITest extends SimpleAPI {
 				if (driver == null){
 					throw new RuntimeException("WebDriver wasn't instantiated.");
 				}
-				EventFiringWebDriver wd = new EventFiringWebDriver(new ChromeDriver());
+				EventFiringWebDriver wd = new EventFiringWebDriver(driver);
 				wd.register(new EventHandler());
 
 				driver = wd;
