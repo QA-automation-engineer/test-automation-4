@@ -13,6 +13,7 @@
         <log4j2.version>2.10.0</log4j2.version>
         <timestamp>${maven.build.timestamp}</timestamp>
         <maven.build.timestamp.format>yyyy-MM-dd_HH-mm-ss</maven.build.timestamp.format>
+        <buildDirectory>${basedir}/target</buildDirectory>
     </properties>
 
     <dependencies>
@@ -49,6 +50,7 @@
     </dependencies>
 
     <build>
+        <directory>${buildDirectory}</directory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -68,7 +70,8 @@
                     <useSystemClassLoader>false</useSystemClassLoader>
                     <systemPropertyVariables>
                         <report.path>./reports/build-${timestamp}</report.path>
-                        <selenium.url>http://localhost:4444/wd/hub</selenium.url>
+                        <selenium.url>localhost</selenium.url>
+                        <browser>Chrome</browser>
                     </systemPropertyVariables>
                 </configuration>
                 <dependencies>
